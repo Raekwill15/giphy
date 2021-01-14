@@ -35,7 +35,7 @@ class App extends Component {
                 <div>{this.state.info.map((val, index) => (
                     
 
-                //<GifCard key={index} url={val. URL
+                //<GifCard key={index} url={val. URLURLURL
 
 
                
