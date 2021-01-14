@@ -31,27 +31,10 @@ class App extends Component {
                 <div>
                     <SearchField update={this.update} />
                 </div>
-
                 <div>{this.state.info.map((val, index) => (
-                    
-
-                //<GifCard key={index} url={val. URLURLURL
-
-
-               
+                //<GifCard key={index} url={val. URLURLURL           
                 </div>
             </div>
         )
-    }
 }
-
-
-
-
-
-
-
-
-
-
 export default App;
