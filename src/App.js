@@ -1,25 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import SearchField from './components/SearchField'
+import React, { Component } from 'react'
+import GifCard from './components/GifCare'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { info: [] }
+        this.update = this.update.bind(this)
+    }
+
+    componentDidMount() {
+        const random = 'http://api.giphy.com/v1/gifs/random?api_key=j0qiwJ6UPIMDYIYMKbLE6reZQtdHTDys'
+        axios.get(random).then((output) => {
+            this.setState({ info: output.info })
+        })  
+        .catch((err) => {
+            console.log(err)
+        })  
+    }   
+
+    update(infoPlus) {
+        this.setState({ info: infoPlus });
+    }
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <SearchField update={this.update} />
+                </div>
+
+                <div>{this.state.info.map((val, index) => (
+                    
+
+                //<GifCard key={index} url={val. URL
+
+
+               
+                </div>
+            </div>
+        )
+    }
 }
+
+
+
+
+
+
+
+
+
 
 export default App;
