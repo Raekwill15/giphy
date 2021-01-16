@@ -40,7 +40,7 @@ export default class SearchField extends Component {
             {console.log(this.state.userInput)}
             <div className = "gif">
                 {this.state.gifArr.map((gifInfo,index) => (
-                    <GifCard url = {gifInfo.url}/>
+                    <GifCard url = {gifInfo.images.original.url}/>
                 ))}
             </div>
         </div>
