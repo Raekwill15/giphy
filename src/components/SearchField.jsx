@@ -5,7 +5,7 @@ import GifCard from './GifCard'
 export default class SearchField extends Component {
     constructor(props) {
         super(props)
-        this.state = { userInput : '', gifArr: [] }
+        this.state = { userInput: '', gifArr: [] }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handltInputChange = this.handleInputChange.bind(this)
     }
@@ -32,14 +32,18 @@ export default class SearchField extends Component {
         console.log(this.state.gifArr)
     }
 
-    update(dataPlus) {
-        this.setState({ data: dataPlus });
-    }
-
     searchRandom() {
-        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
+        fetch(`https://api.giphy.com/v1/gifs/random?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
             .then((output) => output.json())
             .then((output) => { this.setState({ gifArr: output.gifArr }) })
+
+        .catch((err) => console.error(err))
+    }
+
+    searchTrending() {
+        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=bYFMRHm7P79nLgVnPaLhYwOxbIgn3CdZ`)
+            .then((output) => output.json())
+            .then((output) => { this.props.update(output.data) })
 
         .catch((err) => console.error(err))
     }
@@ -48,21 +52,21 @@ export default class SearchField extends Component {
         this.setState({ gifArr: dataPlus });
     }
 
-    searchTrending() {
-        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=bYFMRHm7P79nLgVnPaLhYwOxbIgn3CdZ`)
-            .then((output) => output.json())
-            .then((output) => {
-            this.props.update(output.data)})
-
-        .catch((err) => console.error(err))
-    }
-
     render () {
         return (
         <div>
             <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
             <button onClick = {this.handleSubmit}>Submit</button>
             {console.log(this.state.userInput)}
+
+            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
+            <button onClick = {this.searchRandom}>Random</button>
+            {console.log(this.state.userInput)}
+
+            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
+            <button onClick = {this.searchTrending}>Trending</button>
+            {console.log(this.state.userInput)}
+
             <div className = "gif">
                 {this.state.gifArr.map((gifInfo,index) => (
                     <GifCard url = {gifInfo.images.original.url}/>
@@ -72,18 +76,3 @@ export default class SearchField extends Component {
         )
     }
 }
-
-/*
-    render() {
-        return (
-            <div>
-                <div>
-                    <SearchField update={this.update} />
-                </div> 
-                <div>{this.state.data.map((val, index) => (
-                    <GifCard key={index} url={val.images.original.url}/>))}         
-                </div>
-            </div>
-        )
-    }
-*/
