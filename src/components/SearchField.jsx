@@ -36,7 +36,7 @@ export default class SearchField extends Component {
         this.setState({ data: dataPlus });
     }
 
-    componentDidMount() {
+    searchRandom() {
         fetch(`https://api.giphy.com/v1/gifs/trending?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
             .then((output) => output.json())
             .then((output) => { this.setState({ gifArr: output.gifArr }) })
@@ -46,6 +46,15 @@ export default class SearchField extends Component {
 
     update(dataPlus) {
         this.setState({ gifArr: dataPlus });
+    }
+
+    searchTrending() {
+        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=bYFMRHm7P79nLgVnPaLhYwOxbIgn3CdZ`)
+            .then((output) => output.json())
+            .then((output) => {
+            this.props.update(output.data)})
+
+        .catch((err) => console.error(err))
     }
 
     render () {
