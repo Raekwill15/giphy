@@ -2,14 +2,10 @@ import React,{Component} from 'react'
 import axios from 'axios'
 import GifCard from './GifCard'
 
-class SearchBox extends Component {
+export default class SearchField extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            userInput : '',
-            gifArr: []
-        };
-
+        this.state = { userInput : '', gifArr: [] }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handltInputChange = this.handleInputChange.bind(this)
     }
@@ -51,6 +47,3 @@ class SearchBox extends Component {
         )
     }
 }
-
-export default SearchBox
-
