@@ -1,6 +1,8 @@
 import React,{Component} from 'react'
 import axios from 'axios'
 import GifCard from './GifCard'
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class SearchField extends Component {
     constructor(props) {
@@ -57,14 +59,19 @@ export default class SearchField extends Component {
     render () {
         return (
         <div>
+    <div className="container">
+        <div className="field">
             <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
-            <button onClick = {this.handleSubmit}>Submit</button>
+        </div>
+            <center>
+            <button variant="Info" className="btn-info" onClick = {this.handleSubmit} >Search</button>
 
+            <button variant="Danger" className="btn-danger" onClick = {this.handleRandom}>Random</button>
 
-           <button onClick = {this.handleRandom}>Random</button>
+            <button variant="Warning" className="btn-warning" onClick = {this.handleTrending}>Trending</button>
 
-            <button onClick = {this.handleTrending}>Trending</button>
-
+            </center>
+    </div>
             <div className = "Allgifs">
 
 
