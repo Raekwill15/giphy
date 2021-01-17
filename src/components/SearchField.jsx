@@ -5,9 +5,12 @@ import GifCard from './GifCard'
 export default class SearchField extends Component {
     constructor(props) {
         super(props)
-        this.state = { userInput: '', gifArr: [] }
+        this.state = { userInput: '', gifArr: [] ,randomGif: "",rand : false}
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handltInputChange = this.handleInputChange.bind(this)
+        this.handleTrending = this.handleTrending.bind(this)
+        this.handleRandom = this.handleRandom.bind(this)
+        
     }
 
     handleInputChange = (e) => {
@@ -22,34 +25,32 @@ export default class SearchField extends Component {
         }
     }
 
+    flipRand() {
+        this.setState({rand:false})
+    }
+
+    async handleTrending () {
+        {this.setState({rand:false})}
+        const response2 = await axios.get(`http://api.giphy.com/v1/gifs/trending?api_key=j0qiwJ6UPIMDYIYMKbLE6reZQtdHTDys`)
+        this.setState({
+            gifArr: response2.data.data
+        })
+    }
+
     async handleSubmit () {
+        {this.setState({rand:false})}
         var item = this.state.userInput
-        console.log("this is the item: " + item)
         const response = await axios.get(`https://api.giphy.com/v1/gifs/search?q=${item}&api_key=j0qiwJ6UPIMDYIYMKbLE6reZQtdHTDys`)
         this.setState({
             gifArr: response.data.data
         })
-        console.log(this.state.gifArr)
     }
-
-    searchRandom() {
-        fetch(`https://api.giphy.com/v1/gifs/random?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
-            .then((output) => output.json())
-            .then((output) => { this.setState({ gifArr: output.gifArr }) })
-
-        .catch((err) => console.error(err))
-    }
-
-    searchTrending() {
-        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=bYFMRHm7P79nLgVnPaLhYwOxbIgn3CdZ`)
-            .then((output) => output.json())
-            .then((output) => { this.props.update(output.data) })
-
-        .catch((err) => console.error(err))
-    }
-
-    update(dataPlus) {
-        this.setState({ gifArr: dataPlus });
+    async handleRandom () {
+        const response1 = await axios.get(`http://api.giphy.com/v1/gifs/random?api_key=j0qiwJ6UPIMDYIYMKbLE6reZQtdHTDys`)
+        this.setState({
+            randomGif: response1.data.data.images.original.url,
+            rand: true
+        })
     }
 
     render () {
@@ -57,20 +58,26 @@ export default class SearchField extends Component {
         <div>
             <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
             <button onClick = {this.handleSubmit}>Submit</button>
-            {console.log(this.state.userInput)}
 
-            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
-            <button onClick = {this.searchRandom}>Random</button>
-            {console.log(this.state.userInput)}
+            <button onClick = {this.handleRandom}>Random</button>
 
-            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
-            <button onClick = {this.searchTrending}>Trending</button>
-            {console.log(this.state.userInput)}
+            <button onClick = {this.handleTrending}>Trending</button>
 
-            <div className = "gif">
+            <div className = "Allgifs">
+
+                {this.state.rand === false? 
+                <div>
                 {this.state.gifArr.map((gifInfo,index) => (
-                    <GifCard url = {gifInfo.images.original.url}/>
+                    <GifCard url = {gifInfo.images.original.url} key = {index}/>
                 ))}
+                </div>
+                : 
+                this.state.rand === true ?
+                <div>
+                    <GifCard url = {this.state.randomGif} key = {0}/>
+                    
+                </div>
+                :console.log("")}
             </div>
         </div>
         )
