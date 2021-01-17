@@ -44,6 +44,7 @@ export default class SearchField extends Component {
         this.setState({
             gifArr: response.data.data
         })
+
     }
     async handleRandom () {
         const response1 = await axios.get(`http://api.giphy.com/v1/gifs/random?api_key=j0qiwJ6UPIMDYIYMKbLE6reZQtdHTDys`)
@@ -59,11 +60,13 @@ export default class SearchField extends Component {
             <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
             <button onClick = {this.handleSubmit}>Submit</button>
 
-            <button onClick = {this.handleRandom}>Random</button>
+
+           <button onClick = {this.handleRandom}>Random</button>
 
             <button onClick = {this.handleTrending}>Trending</button>
 
             <div className = "Allgifs">
+
 
                 {this.state.rand === false? 
                 <div>
