@@ -32,25 +32,23 @@ export default class SearchField extends Component {
         console.log(this.state.gifArr)
     }
 
-    searchRandom() {
-        fetch(`https://api.giphy.com/v1/gifs/random?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
-            .then((output) => output.json())
-            .then((output) => { this.setState({ gifArr: output.gifArr }) })
-
-        .catch((err) => console.error(err))
+    async searchRandom() {
+        const response = await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
+        this.setState({
+            gitArr: response.date.date
+        })
+        console.log(this.state.gifArr)
     }
 
-    searchTrending() {
-        fetch(`https://api.giphy.com/v1/gifs/trending?api_key=bYFMRHm7P79nLgVnPaLhYwOxbIgn3CdZ`)
-            .then((output) => output.json())
-            .then((output) => { this.props.update(output.data) })
-
-        .catch((err) => console.error(err))
+    async searchRandom() {
+        const response = await axios.get(`https://api.giphy.com/v1/gifs/trending?api_key=iCou32qYmtidVoNOAQl5QJtlpLVRNfzk`)
+        this.setState({
+            gitArr: response.date.date
+        })
+        console.log(this.state.gifArr)
     }
 
-    update(dataPlus) {
-        this.setState({ gifArr: dataPlus });
-    }
+
 
     render () {
         return (
@@ -59,11 +57,9 @@ export default class SearchField extends Component {
             <button onClick = {this.handleSubmit}>Submit</button>
             {console.log(this.state.userInput)}
 
-            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
             <button onClick = {this.searchRandom}>Random</button>
             {console.log(this.state.userInput)}
 
-            <input type = "text" value = {this.state.userInput} onChange={this.handleInputChange} onKeyDown={this.handleEnter}></input>
             <button onClick = {this.searchTrending}>Trending</button>
             {console.log(this.state.userInput)}
 
