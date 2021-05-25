@@ -1,4 +1,4 @@
-This is a project where me and my group fullfilled the requirements below.
+This is a small project where me and my group fullfilled the requirements below.
 
 # Coding Exercise
 
